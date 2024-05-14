@@ -5,5 +5,12 @@ module.exports = {
   plugins: ['simple-import-sort'],
   rules: {
     'simple-import-sort/imports': 'error',
+    semi: ['error', 'always'],
+    'prettier/prettier': [
+      'error',
+      {
+        semi: true,
+      },
+    ],
   },
-}
+};
