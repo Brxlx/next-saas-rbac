@@ -1,6 +1,7 @@
 @baseUrl = http://localhost:3333
+@authToken = {{auth.response.body.token}}
 
-# create user
+# @name create-user
 POST {{baseUrl}}/users
 Content-Type: application/json
 
@@ -11,6 +12,8 @@ Content-Type: application/json
 }
 
 ###
+
+# @name auth
 POST {{baseUrl}}/sessions/password
 Content-Type: application/json
 
@@ -18,3 +21,10 @@ Content-Type: application/json
   "email": "john@email.com",
   "password": "123456"
 }
+
+###
+
+# @name getProfile
+GET {{baseUrl}}/profile
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

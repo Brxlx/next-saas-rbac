@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs';
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
-import z from 'zod';
+import { z } from 'zod';
 
 import { ApiError } from '@/domain/application/useCases/errors/apiError';
 import { prisma } from '@/lib/prisma';
@@ -17,6 +17,16 @@ export async function authenticateWithPassword(app: FastifyInstance) {
           email: z.string().email(),
           password: z.string(),
         }),
+        response: {
+          201: z.object({
+            token: z.string().default('aaejaejea.434sdsd.s'),
+          }),
+          400: z.object({
+            statusCode: z.number(),
+            error: z.string(),
+            message: z.string(),
+          }),
+        },
       },
     },
     async (req, reply) => {
