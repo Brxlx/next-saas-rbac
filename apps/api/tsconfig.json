@@ -5,7 +5,7 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
   },
   "extends": "@saas/tsconfig/node.json",
   "include": [

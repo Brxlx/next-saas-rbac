@@ -6,8 +6,15 @@ Content-Type: application/json
 
 {
   "name": "Bruno",
-  "email": "bruno@email.com",
+  "email": "john@email.com",
   "password": "123456"
 }
 
 ###
+POST {{baseUrl}}/sessions/password
+Content-Type: application/json
+
+{
+  "email": "john@email.com",
+  "password": "123456"
+}
