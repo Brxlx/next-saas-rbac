@@ -9,13 +9,13 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   name         String?
-  email        String   @unique
-  passwordHash String?  @map("password_hash")
-  avatarUrl    String?  @map("avatar_url")
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  email        String    @unique
+  passwordHash String?   @map("password_hash")
+  avatarUrl    String?   @map("avatar_url")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
 
   tokens             Token[]
   accounts           Account[]
@@ -101,14 +101,14 @@ model Member {
 }
 
 model Organization {
-  id                        String   @id @default(uuid())
+  id                        String    @id @default(uuid())
   name                      String
-  slug                      String   @unique
-  domain                    String?  @unique
-  shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
-  avatarUrl                 String?  @map("avatar_url")
-  createdAt                 DateTime @default(now()) @map("created_at")
-  updatedAt                 DateTime @updatedAt @map("updated_at")
+  slug                      String    @unique
+  domain                    String?   @unique
+  shouldAttachUsersByDomain Boolean   @default(false) @map("should_attach_users_by_domain")
+  avatarUrl                 String?   @map("avatar_url")
+  createdAt                 DateTime  @default(now()) @map("created_at")
+  updatedAt                 DateTime? @updatedAt @map("updated_at")
 
   invites Invite[]
   members Member[]
@@ -121,13 +121,13 @@ model Organization {
 }
 
 model Project {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   description String
-  slug        String   @unique
-  avatarUrl   String?  @map("avatar_url")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  slug        String    @unique
+  avatarUrl   String?   @map("avatar_url")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
 
   invites Invite[]
   members Member[]
