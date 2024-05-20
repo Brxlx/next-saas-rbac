@@ -1,5 +1,6 @@
 import { hash } from 'bcryptjs';
 
+import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 import { prisma } from '@/lib/prisma';
 
 import { ApiError } from '../errors/apiError';
@@ -15,7 +16,7 @@ export async function CreateAccountUseCase({
   email,
   password,
 }: CreateAccountUseCaseRequest): Promise<void> {
-  const userWithSameEmail = await prisma.user.findUnique({ where: { email } });
+  const userWithSameEmail = await new PrismaUsersRepository().findByEmail(email);
 
   if (userWithSameEmail) throw new ApiError('User with same email already exists', 400);
   // return reply.status(400).send({ message: 'User with same email already exists' });
