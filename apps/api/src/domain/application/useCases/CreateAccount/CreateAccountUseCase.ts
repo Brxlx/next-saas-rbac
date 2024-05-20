@@ -31,6 +31,7 @@ export async function CreateAccountUseCase({
 
   const passwordHash = await hash(password, 6);
 
+  // TODO: Refactor to repository pattern
   await prisma.user.create({
     data: {
       name,

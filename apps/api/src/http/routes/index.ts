@@ -1,5 +1,7 @@
-import fastify from 'fastify';
+import { FastifyInstance } from 'fastify';
 
 import { AuthRoutes } from './auth/auth.routes';
 
-const router = fastify().register(AuthRoutes);
+export const appRoutes = async (app: FastifyInstance) => {
+  app.register(AuthRoutes);
+};

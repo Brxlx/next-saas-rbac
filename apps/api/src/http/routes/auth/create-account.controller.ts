@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { CreateAccountUseCase } from '@/domain/application/useCases/CreateAccount/CreateAccountUseCase';
 
-export async function createAccountController(app: FastifyInstance) {
+export async function CreateAccountController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/users',
     {

@@ -1,12 +1,10 @@
-import { compare } from 'bcryptjs';
 import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { ApiError } from '@/domain/application/useCases/errors/apiError';
-import { prisma } from '@/lib/prisma';
+import { AuthenticateWithPasswordUseCase } from '@/domain/application/useCases/AuthenticateWithPassword/AuthenticateWithPasswordUseCase';
 
-export async function authenticateWithPassword(app: FastifyInstance) {
+export async function AuthenticateWithPasswordController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/sessions/password',
     {
@@ -32,24 +30,11 @@ export async function authenticateWithPassword(app: FastifyInstance) {
     async (req, reply) => {
       const { email, password } = req.body;
 
-      const userFromEmail = await prisma.user.findUnique({
-        where: {
-          email,
-        },
-      });
-
-      if (!userFromEmail) throw new ApiError('Unauthorized', 401);
-
-      if (!userFromEmail.passwordHash)
-        throw new ApiError('User does not have a password, use social login', 401);
-
-      const isValidPassword = await compare(password, userFromEmail.passwordHash);
-
-      if (!isValidPassword) throw new ApiError('Unauthorized', 401);
+      const { user } = await AuthenticateWithPasswordUseCase({ email, password });
 
       const token = await reply.jwtSign(
         {
-          sub: userFromEmail.id,
+          sub: user.id,
         },
         { sign: { expiresIn: '7d' } }
       );

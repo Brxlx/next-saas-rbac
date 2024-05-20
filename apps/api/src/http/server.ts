@@ -11,9 +11,7 @@ import {
 } from 'fastify-type-provider-zod';
 
 import { errorHandler } from './error-handler';
-import { authenticateWithPassword } from './routes/auth/authenticate-with-password';
-import { createAccountController } from './routes/auth/create-account.controller';
-import { getProfile } from './routes/auth/get-profile';
+import { appRoutes } from './routes';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -44,9 +42,10 @@ app.register(fastifyJWT, {
 
 app.register(fastifyCors);
 
-app.register(createAccountController);
-app.register(authenticateWithPassword);
-app.register(getProfile);
+/**
+ * App routes
+ */
+app.register(appRoutes);
 
 app.listen({ host: '0.0.0.0', port: 3333 }).then((address) => {
   console.log(`App running on ${address}`);
