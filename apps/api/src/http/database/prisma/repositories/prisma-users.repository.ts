@@ -40,4 +40,10 @@ export class PrismaUsersRepository implements UserRepository {
 
     return PrismaUserMapper.toDomain(user);
   }
+
+  async create(user: User): Promise<void> {
+    await prisma.user.create({
+      data: PrismaUserMapper.toPrisma(user),
+    });
+  }
 }

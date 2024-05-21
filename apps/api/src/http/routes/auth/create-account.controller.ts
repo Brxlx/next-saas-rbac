@@ -15,13 +15,14 @@ export async function CreateAccountController(app: FastifyInstance) {
           name: z.string(),
           email: z.string().email(),
           password: z.string().min(6),
+          avatarUrl: z.string().nullable(),
         }),
       },
     },
     async (req, reply) => {
-      const { name, email, password } = req.body;
+      const { name, email, password, avatarUrl } = req.body;
 
-      await CreateAccountUseCase({ name, email, password });
+      await CreateAccountUseCase({ name, email, password, avatarUrl });
 
       return reply.status(201).send();
     }
