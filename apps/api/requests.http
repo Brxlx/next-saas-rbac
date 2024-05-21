@@ -25,8 +25,16 @@ Content-Type: application/json
 
 ###
 
+# @name getProfile
+GET {{baseUrl}}/profile
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
 # @name request-password-recover
-PUT {{baseUrl}}/password/recover
+POST {{baseUrl}}/password/recover
 Content-Type: application/json
 
 {
@@ -35,7 +43,12 @@ Content-Type: application/json
 
 ###
 
-# @name getProfile
-GET {{baseUrl}}/profile
+# @name reset-password
+POST {{baseUrl}}/password/recover
 Content-Type: application/json
-Authorization: Bearer {{authToken}}
+
+{
+  "code": "23b5d7ec-47fc-4235-a39e-470add7c1453",
+  "email": "bruno@email.com"
+}
+

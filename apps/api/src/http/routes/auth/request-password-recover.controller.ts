@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { RequestPasswordRecoverUseCase } from '@/domain/application/useCases/RequestPasswordRecover/RequestPasswordRecoverUseCase';
 
 export async function RequestPasswordRecoverController(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().put(
+  app.withTypeProvider<ZodTypeProvider>().post(
     '/password/recover',
     {
       schema: {

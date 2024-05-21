@@ -46,4 +46,26 @@ export class PrismaUsersRepository implements UserRepository {
       data: PrismaUserMapper.toPrisma(user),
     });
   }
+
+  async update(user: User): Promise<void> {
+    await prisma.user.update({
+      where: {
+        id: user.id.toString(),
+      },
+      data: {
+        ...user,
+      },
+    });
+  }
+
+  async updatePassword(id: string, passwordHash: string): Promise<void> {
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        passwordHash,
+      },
+    });
+  }
 }
