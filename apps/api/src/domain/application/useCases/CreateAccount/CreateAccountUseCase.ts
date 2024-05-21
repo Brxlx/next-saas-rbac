@@ -19,15 +19,16 @@ export async function CreateAccountUseCase({
   password,
   avatarUrl,
 }: CreateAccountUseCaseRequest): Promise<void> {
-  const userWithSameEmail = await new PrismaUsersRepository().findByEmail(email);
+  const usersRepository = new PrismaUsersRepository();
+
+  const userWithSameEmail = await usersRepository.findByEmail(email);
 
   if (userWithSameEmail) throw new ApiError('User with same email already exists', 400);
   // return reply.status(400).send({ message: 'User with same email already exists' });
 
-  const usersRepository = new PrismaUsersRepository();
-
   const [, domain] = email.split('@');
 
+  // TODO: refactor to repository pattern
   const autoJoinOrganization = await prisma.organization.findFirst({
     where: {
       domain,
@@ -37,7 +38,6 @@ export async function CreateAccountUseCase({
 
   const passwordHash = await hash(password, 6);
 
-  // TODO: Refactor to repository pattern
   const userToDB = User.create({
     ...autoJoinOrganization,
     name,

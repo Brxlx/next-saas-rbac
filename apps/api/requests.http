@@ -25,6 +25,16 @@ Content-Type: application/json
 
 ###
 
+# @name request-password-recover
+PUT {{baseUrl}}/password/recover
+Content-Type: application/json
+
+{
+  "email": "bruno@email.com"
+}
+
+###
+
 # @name getProfile
 GET {{baseUrl}}/profile
 Content-Type: application/json
