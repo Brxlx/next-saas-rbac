@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { GetProfileUseCase } from '@/domain/application/useCases/GetProfile/GetProfileUseCase';
 import { authMiddleware } from '@/http/middlewares/auth';
+import { UserPresenter } from '@/http/presenters/user.presenter';
 
 export async function GetProfileController(app: FastifyInstance) {
   app
@@ -37,7 +38,7 @@ export async function GetProfileController(app: FastifyInstance) {
 
         const { user } = await GetProfileUseCase({ userId });
 
-        return reply.status(200).send({ user });
+        return reply.status(200).send({ user: UserPresenter.toHTTP(user) });
       }
     );
 }

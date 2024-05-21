@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma';
+import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 
 import { ApiError } from '../errors/apiError';
 
@@ -7,17 +7,9 @@ interface AuthenticateWithPasswordUseCaseRequest {
 }
 
 export async function GetProfileUseCase({ userId }: AuthenticateWithPasswordUseCaseRequest) {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      avatarUrl: true,
-    },
-  });
+  const usersRepository = new PrismaUsersRepository();
+
+  const user = await usersRepository.findById(userId);
 
   if (!user) {
     throw new ApiError('User not found', 400);

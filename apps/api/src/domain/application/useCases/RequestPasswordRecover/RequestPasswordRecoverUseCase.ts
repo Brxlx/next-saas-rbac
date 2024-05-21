@@ -37,5 +37,5 @@ export async function RequestPasswordRecoverUseCase({
 
   // Send email with password recover link
 
-  console.log('recovery token:', code);
+  console.log('recovery token:', code.toString());
 }

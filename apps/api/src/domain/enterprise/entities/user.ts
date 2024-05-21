@@ -6,7 +6,7 @@ interface UserProps {
   name?: string | null;
   email: string;
   passwordHash?: string | null;
-  avatarUrl: string | null;
+  avatarUrl?: string | null;
   createdAt: Date;
   updatedAt?: Date | null;
 }
