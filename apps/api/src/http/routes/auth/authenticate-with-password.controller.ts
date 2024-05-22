@@ -17,7 +17,7 @@ export async function AuthenticateWithPasswordController(app: FastifyInstance) {
         }),
         response: {
           201: z.object({
-            token: z.string().default('aaejaejea.434sdsd.s'),
+            token: z.string(),
           }),
           400: z.object({
             statusCode: z.number(),
@@ -32,6 +32,7 @@ export async function AuthenticateWithPasswordController(app: FastifyInstance) {
 
       const { user } = await AuthenticateWithPasswordUseCase({ email, password });
 
+      // TODO: Verify if necessary to put on presenter
       const token = await reply.jwtSign(
         {
           sub: user.id,

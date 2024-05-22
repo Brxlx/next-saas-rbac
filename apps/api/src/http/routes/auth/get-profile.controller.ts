@@ -16,6 +16,7 @@ export async function GetProfileController(app: FastifyInstance) {
         schema: {
           tags: ['auth'],
           summary: 'Get authenticated user profile',
+          security: [{ bearerToken: [] }],
           response: {
             200: z.object({
               user: z.object({
@@ -26,7 +27,7 @@ export async function GetProfileController(app: FastifyInstance) {
               }),
             }),
             400: z.object({
-              statusCode: z.number(),
+              statusCode: z.number().default(400),
               error: z.string(),
               message: z.string(),
             }),

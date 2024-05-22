@@ -13,13 +13,17 @@ export async function AuthenticateWithPasswordUseCase({
   email,
   password,
 }: AuthenticateWithPasswordUseCaseRequest) {
+  // const userPresenter = new UserPresenter();
   const userFromEmail = await prisma.user.findUnique({
     where: {
       email,
     },
   });
 
-  if (!userFromEmail) throw new ApiError('Unauthorized', 401);
+  if (!userFromEmail) {
+    throw new ApiError('Unauthorized', 401);
+    // return userPresenter.showError(new ApiError('Unauthorized from presenter', 401));
+  }
 
   if (!userFromEmail.passwordHash)
     throw new ApiError('User does not have a password, use social login', 401);

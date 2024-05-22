@@ -27,7 +27,21 @@ app.register(fastifySwagger, {
       description: 'ACL Account Management with multi tenant and RBAC.',
       version: '1.0.0',
     },
-    servers: [],
+    servers: [
+      {
+        url: 'http://localhost:3333',
+        description: 'Development server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerToken: {
+          type: 'http',
+          scheme: 'bearer',
+          description: 'Authenticate with jwt token',
+        },
+      },
+    },
   },
   transform: jsonSchemaTransform,
 });
