@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 
+import { AuthenticateWithGithubController } from './authenticate-with-github.controller';
 import { AuthenticateWithPasswordController } from './authenticate-with-password.controller';
 import { CreateAccountController } from './create-account.controller';
 import { GetProfileController } from './get-profile.controller';
@@ -12,4 +13,5 @@ export async function AuthRoutes(app: FastifyInstance) {
   app.register(GetProfileController);
   app.register(RequestPasswordRecoverController);
   app.register(ResetPasswordController);
+  app.register(AuthenticateWithGithubController);
 }

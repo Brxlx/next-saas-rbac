@@ -2,6 +2,7 @@ import fastifyCors from '@fastify/cors';
 import fastifyJWT from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
+import { env } from '@saas/env';
 import { fastify } from 'fastify';
 import {
   jsonSchemaTransform,
@@ -38,6 +39,7 @@ app.register(fastifySwagger, {
         bearerToken: {
           type: 'http',
           scheme: 'bearer',
+          bearerFormat: 'JWT',
           description: 'Authenticate with jwt token',
         },
       },
@@ -51,7 +53,7 @@ app.register(fastifySwaggerUI, {
 });
 
 app.register(fastifyJWT, {
-  secret: 'my-jwt-secret',
+  secret: env.JWT_SECRET,
 });
 
 app.register(fastifyCors);
@@ -61,6 +63,6 @@ app.register(fastifyCors);
  */
 app.register(appRoutes);
 
-app.listen({ host: '0.0.0.0', port: 3333 }).then((address) => {
+app.listen({ host: '0.0.0.0', port: env.SERVER_PORT }).then((address) => {
   console.log(`App running on ${address}`);
 });
