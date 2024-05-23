@@ -33,12 +33,6 @@ export async function AuthenticateWithGithubUseCase({
 
   console.log(githubAccessTokenResponse);
 
-  // {
-  //   access_token: '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',
-  //   token_type: 'bearer',
-  //   scope: 'user:email'
-  // }
-
   const { access_token: accessToken } = z
     .object({
       access_token: z.string(),
