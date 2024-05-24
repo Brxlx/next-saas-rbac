@@ -13,7 +13,7 @@ export abstract class Entity<Props> {
     this._id = id ?? new EntityId(id);
   }
 
-  public equals(entity: Entity<unknown>) {
+  protected equals(entity: Entity<unknown>) {
     if (entity === this) return true;
 
     if (entity._id === this.id) return true;

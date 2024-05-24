@@ -1,8 +1,9 @@
 import { Entity } from '@/core/entities/entity';
 import { EntityId } from '@/core/entities/entity-id';
+import { ProvidersEnum } from '@/core/repositories/account-provider-params';
 
 interface AccountProps {
-  provider: 'GITHUB';
+  provider: ProvidersEnum.GITHUB;
   providerAccountId: EntityId;
   userId: EntityId;
 }

@@ -1,4 +1,5 @@
 import { AccountProviderParams } from '@/core/repositories/account-provider-params';
+import { Select } from '@/core/types/select';
 import { AccountRepository } from '@/domain/application/repositories/account.repository';
 import { Account } from '@/domain/enterprise/entities/account';
 import { prisma } from '@/lib/prisma';
@@ -18,10 +19,10 @@ export class PrismaAccountsRepository implements AccountRepository {
     return PrismaAccountMapper.toDomain(account);
   }
 
-  async findOneByProviderAnduserId({
-    provider,
-    userId,
-  }: AccountProviderParams): Promise<Account | null> {
+  async findOneByProviderAnduserId(
+    { provider, userId }: AccountProviderParams,
+    { select }: Select<Account>
+  ): Promise<Account | null> {
     const account = await prisma.account.findUnique({
       where: {
         provider_userId: {
@@ -29,6 +30,7 @@ export class PrismaAccountsRepository implements AccountRepository {
           userId,
         },
       },
+      select,
     });
 
     if (!account) return null;

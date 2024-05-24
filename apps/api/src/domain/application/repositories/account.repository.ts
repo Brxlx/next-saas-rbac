@@ -1,8 +1,12 @@
 import { AccountProviderParams } from '@/core/repositories/account-provider-params';
+import { Select } from '@/core/types/select';
 import { Account } from '@/domain/enterprise/entities/account';
 
 export interface AccountRepository {
   findById(id: string): Promise<Account | null>;
-  findOneByProviderAnduserId({ provider, userId }: AccountProviderParams): Promise<Account | null>;
+  findOneByProviderAnduserId(
+    { provider, userId }: AccountProviderParams,
+    { select }: Select<Account>
+  ): Promise<Account | null>;
   create(account: Account): Promise<void>;
 }

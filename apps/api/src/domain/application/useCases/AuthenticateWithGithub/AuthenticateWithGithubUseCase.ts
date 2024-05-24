@@ -75,11 +75,13 @@ export async function AuthenticateWithGithubUseCase({
     user = domainUser;
   }
 
-  // TODO: refactor to repository pattern
-  const account = await accountsRepository.findOneByProviderAnduserId({
-    provider: ProvidersEnum.GITHUB,
-    userId: user.id.toString(),
-  });
+  const account = await accountsRepository.findOneByProviderAnduserId(
+    {
+      provider: ProvidersEnum.GITHUB,
+      userId: user.id.toString(),
+    },
+    { select: { id: true, provider: true, providerAccountId: true } }
+  );
 
   if (!account) {
     const accountDomain = Account.create({
