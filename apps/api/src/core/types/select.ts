@@ -1,5 +1,5 @@
 export type Select<T> = {
-  select: {
+  select?: {
     [key in keyof T]?: boolean;
   };
 };

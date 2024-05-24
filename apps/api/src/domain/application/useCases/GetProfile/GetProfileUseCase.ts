@@ -9,7 +9,14 @@ interface AuthenticateWithPasswordUseCaseRequest {
 export async function GetProfileUseCase({ userId }: AuthenticateWithPasswordUseCaseRequest) {
   const usersRepository = new PrismaUsersRepository();
 
-  const user = await usersRepository.findById(userId);
+  const user = await usersRepository.findById(userId, {
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      avatarUrl: true,
+    },
+  });
 
   if (!user) {
     throw new ApiError('User not found', 400);
