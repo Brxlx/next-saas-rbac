@@ -59,6 +59,6 @@ POST {{baseUrl}}/sessions/github
 Content-Type: application/json
 
 {
-  "code": "23b5d7ec-47fc-4235-a39e-470add7c1453"
+  "code": "790e7473bfc28f3be726"
 }
 

@@ -1,9 +1,12 @@
 import { env } from '@saas/env';
 import { z } from 'zod';
 
+import { EntityId } from '@/core/entities/entity-id';
+import { ProvidersEnum } from '@/core/repositories/account-provider-params';
+import { Account } from '@/domain/enterprise/entities/account';
 import { User } from '@/domain/enterprise/entities/user';
+import { PrismaAccountsRepository } from '@/http/database/prisma/repositories/prisma-accounts.repository';
 import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
-import { prisma } from '@/lib/prisma';
 
 import { ApiError } from '../errors/apiError';
 
@@ -16,12 +19,13 @@ export async function AuthenticateWithGithubUseCase({
 }: AuthenticateWithGithubUseCaseRequest) {
   // const userPresenter = new UserPresenter();
   const usersRepository = new PrismaUsersRepository();
+  const accountsRepository = new PrismaAccountsRepository();
 
   const githubOAuthURL = new URL(env.GITHUB_OAUTH_URL);
 
   githubOAuthURL.searchParams.set('client_id', env.GITHUB_OAUTH_CLIENT_ID);
   githubOAuthURL.searchParams.set('client_secret', env.GITHUB_OAUTH_CLIENT_SECRET);
-  githubOAuthURL.searchParams.set('redirect_uri', env.GITHUB_OAUTH_CLIENT_SECRET);
+  githubOAuthURL.searchParams.set('redirect_uri', env.GITHUB_OAUTH_CLIENT_REDIRECT_URI);
   githubOAuthURL.searchParams.set('code', code);
 
   const githubAccessTokenResponse = await fetch(githubOAuthURL, {
@@ -30,8 +34,6 @@ export async function AuthenticateWithGithubUseCase({
       Accept: 'application/json',
     },
   }).then((resp) => resp.json());
-
-  console.log(githubAccessTokenResponse);
 
   const { access_token: accessToken } = z
     .object({
@@ -74,23 +76,19 @@ export async function AuthenticateWithGithubUseCase({
   }
 
   // TODO: refactor to repository pattern
-  let account = await prisma.account.findUnique({
-    where: {
-      provider_userId: {
-        provider: 'GITHUB',
-        userId: user?.id.toString(),
-      },
-    },
+  const account = await accountsRepository.findOneByProviderAnduserId({
+    provider: ProvidersEnum.GITHUB,
+    userId: user.id.toString(),
   });
 
   if (!account) {
-    account = await prisma.account.create({
-      data: {
-        provider: 'GITHUB',
-        providerAccountId: githubId,
-        userId: user.id.toString(),
-      },
+    const accountDomain = Account.create({
+      provider: ProvidersEnum.GITHUB,
+      userId: user.id,
+      providerAccountId: new EntityId(githubId),
     });
+
+    await accountsRepository.create(accountDomain);
   }
 
   return { user };
