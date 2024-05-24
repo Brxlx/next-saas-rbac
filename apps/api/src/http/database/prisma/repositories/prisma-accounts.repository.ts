@@ -19,7 +19,7 @@ export class PrismaAccountsRepository implements AccountRepository {
     return PrismaAccountMapper.toDomain(account);
   }
 
-  async findOneByProviderAnduserId(
+  async findOneByProviderAndUserId(
     { provider, userId }: AccountProviderParams,
     { select }: Select<Account>
   ): Promise<Account | null> {

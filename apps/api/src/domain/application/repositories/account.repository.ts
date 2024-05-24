@@ -4,7 +4,7 @@ import { Account } from '@/domain/enterprise/entities/account';
 
 export interface AccountRepository {
   findById(id: string): Promise<Account | null>;
-  findOneByProviderAnduserId(
+  findOneByProviderAndUserId(
     { provider, userId }: AccountProviderParams,
     { select }: Select<Account>
   ): Promise<Account | null>;

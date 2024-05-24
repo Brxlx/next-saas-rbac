@@ -75,7 +75,7 @@ export async function AuthenticateWithGithubUseCase({
     user = domainUser;
   }
 
-  const account = await accountsRepository.findOneByProviderAnduserId(
+  const account = await accountsRepository.findOneByProviderAndUserId(
     {
       provider: ProvidersEnum.GITHUB,
       userId: user.id.toString(),
