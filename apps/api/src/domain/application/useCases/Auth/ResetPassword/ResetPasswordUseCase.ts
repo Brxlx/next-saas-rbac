@@ -4,7 +4,7 @@ import { PrismaTokensRepository } from '@/http/database/prisma/repositories/pris
 import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 import { UnauthorizedError } from '@/http/routes/_errors/unauthorized-error';
 
-import { ApiError } from '../errors/apiError';
+import { ApiError } from '../../errors/apiError';
 
 interface ResetPasswordUseCaseRequest {
   code: string;

@@ -1,6 +1,6 @@
 import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 
-import { ApiError } from '../errors/apiError';
+import { ApiError } from '../../errors/apiError';
 
 interface AuthenticateWithPasswordUseCaseRequest {
   userId: string;

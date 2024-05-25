@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { RequestPasswordRecoverUseCase } from '@/domain/application/useCases/RequestPasswordRecover/RequestPasswordRecoverUseCase';
+import { RequestPasswordRecoverUseCase } from '@/domain/application/useCases/Auth/RequestPasswordRecover/RequestPasswordRecoverUseCase';
 
 export async function RequestPasswordRecoverController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

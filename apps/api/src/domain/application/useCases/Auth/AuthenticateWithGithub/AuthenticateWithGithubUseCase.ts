@@ -8,7 +8,7 @@ import { User } from '@/domain/enterprise/entities/user';
 import { PrismaAccountsRepository } from '@/http/database/prisma/repositories/prisma-accounts.repository';
 import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 
-import { ApiError } from '../errors/apiError';
+import { ApiError } from '../../errors/apiError';
 
 interface AuthenticateWithGithubUseCaseRequest {
   code: string;

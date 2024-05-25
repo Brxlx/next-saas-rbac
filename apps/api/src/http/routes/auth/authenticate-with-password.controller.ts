@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { AuthenticateWithPasswordUseCase } from '@/domain/application/useCases/AuthenticateWithPassword/AuthenticateWithPasswordUseCase';
+import { AuthenticateWithPasswordUseCase } from '@/domain/application/useCases/Auth/AuthenticateWithPassword/AuthenticateWithPasswordUseCase';
 
 export async function AuthenticateWithPasswordController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

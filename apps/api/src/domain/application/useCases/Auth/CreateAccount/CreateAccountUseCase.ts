@@ -4,7 +4,7 @@ import { User } from '@/domain/enterprise/entities/user';
 import { PrismaUsersRepository } from '@/http/database/prisma/repositories/prisma-users.repository';
 import { prisma } from '@/lib/prisma';
 
-import { ApiError } from '../errors/apiError';
+import { ApiError } from '../../errors/apiError';
 
 interface CreateAccountUseCaseRequest {
   name: string;
@@ -36,6 +36,7 @@ export async function CreateAccountUseCase({
     },
   });
 
+  // TODO: refactor to gateway pattern
   const passwordHash = await hash(password, 6);
 
   const userToDB = User.create({

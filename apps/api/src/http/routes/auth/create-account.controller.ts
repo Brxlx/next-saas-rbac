@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { CreateAccountUseCase } from '@/domain/application/useCases/CreateAccount/CreateAccountUseCase';
+import { CreateAccountUseCase } from '@/domain/application/useCases/Auth/CreateAccount/CreateAccountUseCase';
 
 export async function CreateAccountController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

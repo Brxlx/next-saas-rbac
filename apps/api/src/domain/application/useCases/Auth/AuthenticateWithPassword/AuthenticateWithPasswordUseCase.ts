@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs';
 
 import { prisma } from '@/lib/prisma';
 
-import { ApiError } from '../errors/apiError';
+import { ApiError } from '../../errors/apiError';
 
 interface AuthenticateWithPasswordUseCaseRequest {
   email: string;

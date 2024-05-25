@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { AuthenticateWithGithubUseCase } from '@/domain/application/useCases/AuthenticateWithGithub/AuthenticateWithGithubUseCase';
+import { AuthenticateWithGithubUseCase } from '@/domain/application/useCases/Auth/AuthenticateWithGithub/AuthenticateWithGithubUseCase';
 
 export async function AuthenticateWithGithubController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

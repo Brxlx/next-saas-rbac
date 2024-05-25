@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { ResetPasswordUseCase } from '@/domain/application/useCases/ResetPassword/ResetPasswordUseCase';
+import { ResetPasswordUseCase } from '@/domain/application/useCases/Auth/ResetPassword/ResetPasswordUseCase';
 
 export async function ResetPasswordController(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().put(
