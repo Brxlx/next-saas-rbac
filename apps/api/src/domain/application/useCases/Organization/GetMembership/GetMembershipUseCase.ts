@@ -14,7 +14,7 @@ interface AuthenticateWithPasswordUseCaseRequest {
 
 export async function GetMembershipUseCase({ membership }: AuthenticateWithPasswordUseCaseRequest) {
   if (!membership)
-    throw new ApiError('Invalid membership or ou ate not member on this organization', 401);
+    throw new ApiError('Invalid membership or you are not member on this organization', 401);
 
   // Prisma
 
