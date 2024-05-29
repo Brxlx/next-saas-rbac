@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { GetProfileUseCase } from '@/domain/application/useCases/Auth/GetProfile/GetProfileUseCase';
+import { GetProfileUseCase } from '@/domain/application/useCases/Organization/GetProfile/GetProfileUseCase';
 import { authMiddleware } from '@/http/middlewares/auth';
 import { UserPresenter } from '@/http/presenters/user.presenter';
 
