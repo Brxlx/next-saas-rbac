@@ -1,0 +1,64 @@
+@baseUrl = http://localhost:3333
+@authToken = {{auth.response.body.token}}
+
+# @name create-user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Bruno",
+  "email": "bruno@email.com",
+  "password": "123456",
+  "avatarUrl": "https://github.com/Brxlx.png"
+}
+
+###
+
+# @name auth
+POST {{baseUrl}}/sessions/password
+Content-Type: application/json
+
+{
+  "email": "bruno@email.com",
+  "password": "123456"
+}
+
+###
+
+# @name getProfile
+GET {{baseUrl}}/profile
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+###
+
+# @name request-password-recover
+POST {{baseUrl}}/password/recover
+Content-Type: application/json
+
+{
+  "email": "bruno@email.com"
+}
+
+###
+
+# @name reset-password
+POST {{baseUrl}}/password/recover
+Content-Type: application/json
+
+{
+  "code": "23b5d7ec-47fc-4235-a39e-470add7c1453",
+  "email": "bruno@email.com"
+}
+
+###
+
+# @name authenticate-with-github
+POST {{baseUrl}}/sessions/github
+Content-Type: application/json
+
+{
+  "code": "790e7473bfc28f3be726"
+}
+
