@@ -1,5 +1,6 @@
 import { Entity } from '@/core/entities/entity';
 import { EntityId } from '@/core/entities/entity-id';
+import { MembershipRoleEnum } from '@/core/repositories/membership-roles';
 import { Optional } from '@/core/types/Optional';
 
 interface OrganizationProps {
@@ -9,9 +10,11 @@ interface OrganizationProps {
   shouldAttachUsersByDomain?: boolean;
   ownerId: EntityId;
   avatarUrl?: string | null;
+  role: MembershipRoleEnum;
   createdAt: Date;
   updatedAt?: Date | null;
 }
+
 export class Organization extends Entity<OrganizationProps> {
   get name() {
     return this.props.name;
@@ -31,6 +34,10 @@ export class Organization extends Entity<OrganizationProps> {
 
   get avatarUrl() {
     return this.props.avatarUrl;
+  }
+
+  get role() {
+    return this.props.role;
   }
 
   get createdAt() {
@@ -53,6 +60,7 @@ export class Organization extends Entity<OrganizationProps> {
       {
         ...props,
         shouldAttachUsersByDomain: props.shouldAttachUsersByDomain ?? false,
+        role: props.role ?? undefined,
         createdAt: props.createdAt ?? new Date(),
       },
       id

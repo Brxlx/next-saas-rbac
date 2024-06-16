@@ -1,3 +1,4 @@
+import { OmitFromClass } from '@/core/types/OmitFromClass';
 import { Select } from '@/core/types/select';
 import { OrganizationRepository } from '@/domain/application/repositories/organization.repository';
 import { Organization } from '@/domain/enterprise/entities/organization';
@@ -33,6 +34,38 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
     if (!organization) return null;
 
     return PrismaOrganizationMapper.toDomain(organization);
+  }
+
+  // TODO: REFACTOR TO DYNAMICLY CHOOSE DATA
+  async findWhereUserIsIn(
+    userId: string,
+    { select }: Select<OmitFromClass<Organization, 'role'>>
+  ): Promise<Organization[]> {
+    const organizations = await prisma.organization.findMany({
+      where: {
+        members: {
+          some: {
+            userId,
+          },
+        },
+      },
+      select: {
+        // id: true,
+        // name: true,
+        // slug: true,
+        // avatarUrl: true,
+        ...select,
+        members: {
+          select: { role: true },
+          where: { userId },
+        },
+      },
+    });
+
+    return organizations.map(({ members, ...all }) => {
+      const role = members[0].role;
+      return PrismaOrganizationMapper.toDomain({ ...all, role });
+    });
   }
 
   async createAsAdmin(organization: Organization): Promise<Organization> {

@@ -1,18 +1,20 @@
-import { Organization as PrismaOrganization, Prisma } from '@prisma/client';
+import { $Enums, Organization as PrismaOrganization, Prisma } from '@prisma/client';
 
 import { EntityId } from '@/core/entities/entity-id';
+import { MembershipRoleEnum } from '@/core/repositories/membership-roles';
 import { Organization } from '@/domain/enterprise/entities/organization';
 
 export class PrismaOrganizationMapper {
-  static toDomain(raw: PrismaOrganization): Organization {
+  static toDomain(raw: Partial<PrismaOrganization> & Partial<{ role: $Enums.Role }>): Organization {
     return Organization.create(
       {
-        name: raw.name,
+        name: raw.name!,
         domain: raw.domain ?? null,
-        slug: raw.slug,
+        slug: raw.slug!,
         shouldAttachUsersByDomain: raw.shouldAttachUsersByDomain,
         ownerId: new EntityId(raw.ownerId),
-        avatarUrl: raw.avatarUrl,
+        avatarUrl: raw.avatarUrl ?? null,
+        role: raw.role as MembershipRoleEnum,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },
