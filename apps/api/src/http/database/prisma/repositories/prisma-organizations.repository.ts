@@ -36,7 +36,6 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
     return PrismaOrganizationMapper.toDomain(organization);
   }
 
-  // TODO: REFACTOR TO DYNAMICLY CHOOSE DATA
   async findWhereUserIsIn(
     userId: string,
     { select }: Select<OmitFromClass<Organization, 'role'>>
