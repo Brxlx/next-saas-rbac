@@ -1,5 +1,5 @@
 /**
- * Build a type from a class that correctly displays the properties of a class or interface and omits it from the typing properties.
+ * Build a type from a class that correctly displays its properties and omits it from the typing properties.
  * @param typing
  * @param property
  */

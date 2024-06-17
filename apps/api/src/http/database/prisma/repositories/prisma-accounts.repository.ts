@@ -1,5 +1,5 @@
 import { AccountProviderParams } from '@/core/repositories/account-provider-params';
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { AccountRepository } from '@/domain/application/repositories/account.repository';
 import { Account } from '@/domain/enterprise/entities/account';
 import { prisma } from '@/lib/prisma';

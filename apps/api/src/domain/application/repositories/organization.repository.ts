@@ -1,4 +1,4 @@
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { Organization } from '@/domain/enterprise/entities/organization';
 
 export interface OrganizationRepository {

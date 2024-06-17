@@ -1,4 +1,4 @@
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { UserRepository } from '@/domain/application/repositories/user.repository';
 import { User } from '@/domain/enterprise/entities/user';
 import { prisma } from '@/lib/prisma';

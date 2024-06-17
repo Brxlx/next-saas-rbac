@@ -1,5 +1,5 @@
 import { AccountProviderParams } from '@/core/repositories/account-provider-params';
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { Account } from '@/domain/enterprise/entities/account';
 
 export interface AccountRepository {

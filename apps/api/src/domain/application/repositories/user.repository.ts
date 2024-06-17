@@ -1,4 +1,4 @@
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { User } from '@/domain/enterprise/entities/user';
 
 export interface UserRepository {

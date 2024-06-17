@@ -1,5 +1,5 @@
 import { OmitFromClass } from '@/core/types/OmitFromClass';
-import { Select } from '@/core/types/select';
+import { Select } from '@/core/types/Select';
 import { OrganizationRepository } from '@/domain/application/repositories/organization.repository';
 import { Organization } from '@/domain/enterprise/entities/organization';
 import { prisma } from '@/lib/prisma';
