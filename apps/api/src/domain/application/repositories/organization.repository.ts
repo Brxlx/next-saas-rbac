@@ -12,4 +12,5 @@ export interface OrganizationRepository {
   findWhereUserIsIn(userId: string, { select }: Select<Organization>): Promise<Organization[]>;
   createAsAdmin(organization: Organization): Promise<Organization>;
   update(organization: Organization): Promise<Organization | null>;
+  delete(userId: string, organizationId: string): Promise<void>;
 }

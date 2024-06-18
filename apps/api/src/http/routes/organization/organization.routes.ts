@@ -4,6 +4,7 @@ import { CreateOrganizationController } from './create-organization.controller';
 import { GetMembershipController } from './get-membership.controller';
 import { GetOrganizationController } from './get-organization.controller';
 import { GetOrganizationsController } from './get-organizations.controller';
+import { ShutdownOrganizationController } from './shutdown-organization.controller';
 import { UpdateOrganizationController } from './update-organization.controller';
 
 export async function OrganizationRoutes(app: FastifyInstance) {
@@ -12,4 +13,5 @@ export async function OrganizationRoutes(app: FastifyInstance) {
   app.register(GetOrganizationController);
   app.register(GetOrganizationsController);
   app.register(UpdateOrganizationController);
+  app.register(ShutdownOrganizationController);
 }

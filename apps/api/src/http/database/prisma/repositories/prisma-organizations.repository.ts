@@ -116,4 +116,12 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
 
     return PrismaOrganizationMapper.toDomain(updatedOrg);
   }
+
+  async delete(organizationId: string): Promise<void> {
+    await prisma.organization.delete({
+      where: {
+        id: organizationId,
+      },
+    });
+  }
 }
