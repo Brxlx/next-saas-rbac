@@ -3,14 +3,16 @@ import { EntityId } from '@/core/entities/entity-id';
 import { MembershipRoleEnum } from '@/core/repositories/membership-roles';
 import { Optional } from '@/core/types/Optional';
 
+import { Slug } from './value-objects/slug';
+
 interface OrganizationProps {
   name: string;
-  slug: string;
+  slug: Slug;
   domain?: string | null;
-  shouldAttachUsersByDomain?: boolean;
+  shouldAttachUsersByDomain?: boolean | null;
   ownerId: EntityId;
   avatarUrl?: string | null;
-  role: MembershipRoleEnum;
+  role?: MembershipRoleEnum;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -61,6 +63,20 @@ export class Organization extends Entity<OrganizationProps> {
         ...props,
         shouldAttachUsersByDomain: props.shouldAttachUsersByDomain ?? false,
         role: props.role ?? undefined,
+        createdAt: props.createdAt ?? new Date(),
+      },
+      id
+    );
+  }
+
+  static createWithoutRole(
+    props: Optional<OrganizationProps, 'shouldAttachUsersByDomain' | 'createdAt'>,
+    id?: EntityId
+  ) {
+    return new Organization(
+      {
+        ...props,
+        shouldAttachUsersByDomain: props.shouldAttachUsersByDomain ?? false,
         createdAt: props.createdAt ?? new Date(),
       },
       id

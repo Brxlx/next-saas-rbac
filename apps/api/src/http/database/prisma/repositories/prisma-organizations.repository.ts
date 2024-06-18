@@ -36,6 +36,21 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
     return PrismaOrganizationMapper.toDomain(organization);
   }
 
+  async findByDomainAndNotSlug(
+    domain: string,
+    id: string,
+    { select }: Select<Organization>
+  ): Promise<Organization | null> {
+    const organization = await prisma.organization.findFirst({
+      where: { domain, id: { not: id } },
+      select,
+    });
+
+    if (!organization) return null;
+
+    return PrismaOrganizationMapper.toDomain(organization);
+  }
+
   async findWhereUserIsIn(
     userId: string,
     { select }: Select<OmitFromClass<Organization, 'role'>>
@@ -61,6 +76,7 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
       },
     });
 
+    // TODO: refactor
     return organizations.map(({ members, ...all }) => {
       const role = members[0].role;
       return PrismaOrganizationMapper.toDomain({ ...all, role });
@@ -82,5 +98,22 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
     });
 
     return PrismaOrganizationMapper.toDomain(newOrganization);
+  }
+
+  async update(organization: Organization): Promise<Organization | null> {
+    const prismaOrganization = PrismaOrganizationMapper.toPrisma(organization);
+
+    const updatedOrg = await prisma.organization.update({
+      where: {
+        id: prismaOrganization.id,
+      },
+      data: {
+        name: prismaOrganization.name,
+        domain: prismaOrganization.domain,
+        shouldAttachUsersByDomain: prismaOrganization.shouldAttachUsersByDomain,
+      },
+    });
+
+    return PrismaOrganizationMapper.toDomain(updatedOrg);
   }
 }

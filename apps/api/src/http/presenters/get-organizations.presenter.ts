@@ -1,4 +1,5 @@
 import { Presenter } from '@/core/presenters/presenter';
+import { MembershipRoleEnum } from '@/core/repositories/membership-roles';
 import { ApiError } from '@/domain/application/useCases/errors/apiError';
 import { Organization } from '@/domain/enterprise/entities/organization';
 
@@ -12,9 +13,9 @@ export class GetOrganizationsPresenter implements Presenter<Organization> {
       return {
         id: org.id.toString(),
         name: org.name,
-        slug: org.slug,
+        slug: org.slug.value,
         avatarUrl: org.avatarUrl ?? null,
-        role: org.role,
+        role: org.role as MembershipRoleEnum,
       };
     });
   }
