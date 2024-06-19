@@ -31,7 +31,7 @@ export async function CreateOrganizationUseCase({
     Organization.create({
       name,
       domain,
-      slug: Slug.createFromText(name).value,
+      slug: Slug.createFromText(name),
       shouldAttachUsersByDomain,
       ownerId: new EntityId(userId),
     })
