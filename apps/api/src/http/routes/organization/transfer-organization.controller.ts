@@ -2,25 +2,23 @@ import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { UpdateOrganizationUseCase } from '@/domain/application/useCases/Organization/UpdateOrganization/UpdateOrganizationUseCase';
+import { TransferOrganizationUseCase } from '@/domain/application/useCases/Organization/TransferOrganization/TransferOrganizationUseCase';
 import { authMiddleware } from '@/http/middlewares/auth';
 
-export async function UpdateOrganizationController(app: FastifyInstance) {
+export async function TransferOrganizationController(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(authMiddleware)
-    .put(
-      '/organizations/:slug',
+    .patch(
+      '/organizations/:slug/owner',
 
       {
         schema: {
           tags: ['organization'],
-          summary: 'Update organization details',
+          summary: 'Transfer organization ownership',
           security: [{ bearerToken: [] }],
           body: z.object({
-            name: z.string(),
-            domain: z.string().nullish(),
-            shouldAttachUsersByDomain: z.boolean().optional(),
+            transferToUserId: z.string().uuid(),
           }),
           params: z.object({
             slug: z.string(),
@@ -34,14 +32,11 @@ export async function UpdateOrganizationController(app: FastifyInstance) {
         const { slug } = req.params;
         const userId = await req.getCurrentUserId();
         const { membership, organization } = await req.getUserMembership(slug);
-        const { name, domain, shouldAttachUsersByDomain } = req.body;
+        const { transferToUserId } = req.body;
 
-        await UpdateOrganizationUseCase({
+        await TransferOrganizationUseCase({
           userId,
-          name,
-          domain,
-          slug,
-          shouldAttachUsersByDomain,
+          transferToUserId,
           membership,
           organization,
         });

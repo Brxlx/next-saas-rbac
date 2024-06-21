@@ -76,7 +76,6 @@ export class PrismaOrganizationsRepository implements OrganizationRepository {
       },
     });
 
-    // TODO: refactor
     return organizations.map(({ members, ...all }) => {
       const role = members[0].role;
       return PrismaOrganizationMapper.toDomain({ ...all, role });

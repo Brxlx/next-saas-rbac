@@ -6,7 +6,7 @@ import { Organization } from '@/domain/enterprise/entities/organization';
 import { Slug } from '@/domain/enterprise/entities/value-objects/slug';
 
 export class PrismaOrganizationMapper {
-  static toDomain(raw: Partial<PrismaOrganization> & Partial<{ role: $Enums.Role }>): Organization {
+  static toDomain(raw: PrismaOrganization & Partial<{ role: $Enums.Role }>): Organization {
     return Organization.create(
       {
         name: raw.name!,
